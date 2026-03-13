@@ -1,0 +1,169 @@
+ <!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vihar Poster Generator</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1A1040" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Vihar Poster" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <header class="app-header">
+      <div class="header-icon">🚶</div>
+      <h1 class="app-title">Vihar Poster Generator</h1>
+      <p class="app-subtitle">Made By Harsh Narendra Jain</p>
+      <p class="app-subtitle">વિહાર પોસ્ટર બનાવો • Create & Share</p>
+    </header>
+
+    <div class="card controls-card">
+
+      <!-- Start Point Dropdown -->
+      <div class="field-group">
+        <label class="field-label" for="startSelect">📍 Start Point — શરૂઆત</label>
+        <div class="select-wrapper">
+          <select id="startSelect" class="styled-select" onchange="toggleCustom('start')">
+            <option value="">-- શરૂઆત પસંદ કરો --</option>
+            <option value="મહાવીર સોસાયટી">મહાવીર સોસાયટી</option>
+            <option value="મરોલી">મરોલી</option>
+            <option value="આદિનાથ">આદિનાથ</option>
+            <option value="ચિંતામણી">ચિંતામણી</option>
+            <option value="તપોવન સંસ્કારધામ">તપોવન સંસ્કારધામ</option>
+            <option value="નહાર વિહારધામ">નહાર વિહારધામ</option>
+            <option value="સાલેજ વિહારધામ">સાલેજ વિહારધામ</option>
+            <option value="ઓમશાંતિ ધામણ">ઓમશાંતિ ધામણ</option>
+            <option value="બાવન જિનાલય (તિઘરા)">બાવન જિનાલય (તિઘરા)</option>
+            <option value="૨.છ. આરાધના ભવન">૨.છ. આરાધના ભવન</option>
+            <option value="વેસ્મા વિહારધામ">વેસ્મા વિહારધામ</option>
+            <option value="બલેશ્વર">બલેશ્વર</option>
+            <option value="સિસોદ્રા">સિસોદ્રા</option>
+            <option value="અષ્ટગામ વિહારધામ">અષ્ટગામ વિહારધામ</option>
+            <option value="other">✏️ બીજું લખો...</option>
+          </select>
+          <span class="select-arrow">▾</span>
+        </div>
+        <!-- Shown only when "other" is selected -->
+        <input type="text" id="startCustom" class="styled-input custom-input hidden"
+               placeholder="તમારો Start Point લખો..." />
+      </div>
+
+      <!-- End Point Dropdown -->
+      <div class="field-group">
+        <label class="field-label" for="endSelect">🏁 End Point — અંત</label>
+        <div class="select-wrapper">
+          <select id="endSelect" class="styled-select" onchange="toggleCustom('end')">
+            <option value="">-- અંત પસંદ કરો --</option>
+            <option value="મહાવીર સોસાયટી">મહાવીર સોસાયટી</option>
+            <option value="મરોલી">મરોલી</option>
+            <option value="આદિનાથ">આદિનાથ</option>
+            <option value="ચિંતામણી">ચિંતામણી</option>
+            <option value="તપોવન સંસ્કારધામ">તપોવન સંસ્કારધામ</option>
+            <option value="નહાર વિહારધામ">નહાર વિહારધામ</option>
+            <option value="સાલેજ વિહારધામ">સાલેજ વિહારધામ</option>
+            <option value="ઓમશાંતિ ધામણ">ઓમશાંતિ ધામણ</option>
+            <option value="બાવન જિનાલય (તિઘરા)">બાવન જિનાલય (તિઘરા)</option>
+            <option value="૨.છ. આરાધના ભવન">૨.છ. આરાધના ભવન</option>
+            <option value="વેસ્મા વિહારધામ">વેસ્મા વિહારધામ</option>
+            <option value="બલેશ્વર">બલેશ્વર</option>
+            <option value="સિસોદ્રા">સિસોદ્રા</option>
+            <option value="અષ્ટગામ વિહારધામ">અષ્ટગામ વિહારધામ</option>
+            <option value="other">✏️ બીજું લખો...</option>
+          </select>
+          <span class="select-arrow">▾</span>
+        </div>
+        <!-- Shown only when "other" is selected -->
+        <input type="text" id="endCustom" class="styled-input custom-input hidden"
+               placeholder="તમારો End Point લખો..." />
+      </div>
+
+      <!-- Team Name Dropdown -->
+      <div class="field-group">
+        <label class="field-label" for="teamSelect">👥 Team Name</label>
+        <div class="select-wrapper">
+          <select id="teamSelect" class="styled-select">
+            <option value="">-- ટીમ પસંદ કરો --</option>
+            <<option value="હર્ષદભાઈ - હિમાંશુ ટીમ">હર્ષદભાઈ - હિમાંશુ ટીમ</option>
+            <option value="આશિષભાઈ - મૈત્રિક ટીમ">આશિષભાઈ - મૈત્રિક ટીમ</option>
+            <option value="યતીન - પરમ ટીમ">યતીન - પરમ ટીમ</option>
+            <option value="જીતુભાઈ - કૈલાસ ટીમ">જીતુભાઈ - કૈલાસ ટીમ</option>
+            <option value="જેસલ - અંકિત ચિંતામણી ટીમ">જેસલ - અંકિત ચિંતામણી ટીમ</option>
+            <option value="ધવલ સાતેમ ટીમ">ધવલ સાતેમ ટીમ</option>
+            <option value="રોનક મહાવીર નગર ટીમ">રોનક મહાવીર નગર ટીમ</option>
+          </select>
+          <span class="select-arrow">▾</span>
+        </div>
+      </div>
+
+      <!-- Shraman-Shramni Bhagwant -->
+      <div class="field-group">
+        <label class="field-label">🙏 Shraman-Shramni Bhagwant</label>
+        <input type="text" id="bhagwantInput" class="styled-input" placeholder="ભગવંત નું નામ લખો..." />
+      </div>
+
+      <!-- Members Field -->
+      <div class="field-group">
+        <label class="field-label">🧑‍🤝‍🧑 Members નામ (1–10)</label>
+        <div id="membersContainer">
+          <div class="member-row">
+            <input type="text" class="styled-input member-input" placeholder="સભ્ય 1 નું નામ..." />
+            <button class="btn-remove-member" onclick="removeMember(this)" title="Remove">✕</button>
+          </div>
+         
+        </div>
+        <button class="btn btn-add-member" onclick="addMember()">➕ સભ્ય ઉમેરો</button>
+      </div>
+
+      <!-- Photo Upload -->
+      <div class="field-group">
+        <label class="field-label">📸 Photo Upload કરો</label>
+        <input type="file" id="photoInput" accept="image/*" hidden />
+        <button class="btn btn-upload" onclick="document.getElementById('photoInput').click()">
+          <span id="uploadLabel">📷 ફોટો પસંદ કરો</span>
+        </button>
+        <div id="photoPreview" class="photo-preview hidden">
+          <img id="previewImg" src="" alt="Preview" />
+          <span class="preview-badge">✓ ફોટો તૈયાર</span>
+        </div>
+      </div>
+
+      <!-- Generate Button -->
+      <button class="btn btn-generate" onclick="generatePoster()">
+        ✨ Generate Poster બનાવો
+      </button>
+
+    </div>
+
+    <!-- Canvas Preview -->
+    <div class="card canvas-card">
+      <p class="canvas-hint" id="canvasHint">પોસ્ટર અહીં દેખાશે 👆</p>
+      <canvas id="posterCanvas" width="500" height="700"></canvas>
+      <div class="action-buttons hidden" id="actionButtons">
+        <button class="btn btn-download" onclick="downloadPoster()">⬇️ Download PNG</button>
+        <button class="btn btn-share" onclick="sharePoster()">📤 Share</button>
+      </div>
+    </div>
+
+    <footer class="app-footer">Made with ❤️ for Vihar Seva Group</footer>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>

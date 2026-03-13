@@ -1,0 +1,258 @@
+/* ===================================================
+   style.css — Vihar Poster Generator
+   Original warm saffron + deep indigo UI
+   =================================================== */
+
+:root {
+  --saffron:       #FF6B00;
+  --saffron-light: #FF9A3C;
+  --saffron-glow:  rgba(255, 107, 0, 0.25);
+  --indigo:        #1A1040;
+  --indigo-mid:    #2D1F6E;
+  --gold:          #FFD166;
+  --white:         #FFFFFF;
+  --off-white:     #FFF8F0;
+  --card-bg:       #FFFFFF;
+  --text-dark:     #1A1040;
+  --text-muted:    #7B6FA0;
+  --border:        #EDE0FF;
+  --radius-card:   20px;
+  --radius-btn:    14px;
+  --shadow-card:   0 8px 32px rgba(26, 16, 64, 0.12);
+  --shadow-btn:    0 4px 16px rgba(255, 107, 0, 0.35);
+  --font-ui:       'Sora', sans-serif;
+  --font-gu:       'Noto Sans Gujarati', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ui);
+  background: linear-gradient(160deg, #1A1040 0%, #2D1F6E 45%, #FF6B00 100%);
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Wrapper ── */
+.app-wrapper {
+  position: relative; z-index: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* ── Header ── */
+.app-header { text-align: center; padding: 16px 0 8px; }
+
+.header-icon {
+  font-size: 2.8rem;
+  display: block; margin-bottom: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.app-title {
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.app-subtitle {
+  font-family: var(--font-gu);
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-top: 4px; opacity: 0.9;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+.controls-card { padding: 24px 20px 28px; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Fields ── */
+.field-group { margin-bottom: 20px; }
+
+.field-label {
+  display: block;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.optional {
+  font-weight: 400; text-transform: none;
+  color: #bbb; font-size: 0.72rem;
+}
+
+/* ── Selects ── */
+.select-wrapper { position: relative; }
+
+.styled-select {
+  width: 100%;
+  padding: 13px 44px 13px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--off-white);
+  font-family: var(--font-gu);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  appearance: none; cursor: pointer; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.styled-select:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px var(--saffron-glow);
+}
+
+.select-arrow {
+  position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--saffron); font-size: 1rem;
+  pointer-events: none;
+}
+
+/* ── Buttons ── */
+.btn {
+  width: 100%; padding: 14px 20px; border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-ui); font-size: 1rem; font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-upload {
+  background: var(--off-white);
+  color: var(--indigo-mid);
+  border: 2px dashed var(--border);
+}
+.btn-upload:hover { border-color: var(--saffron); color: var(--saffron); }
+
+.btn-generate {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-light));
+  color: var(--white);
+  box-shadow: var(--shadow-btn);
+  margin-top: 8px; font-size: 1.05rem;
+}
+.btn-generate:hover { box-shadow: 0 6px 24px rgba(255,107,0,0.5); }
+
+.btn-download { background: var(--indigo); color: var(--white); flex: 1; }
+.btn-share    { background: linear-gradient(135deg, #25D366, #128C7E); color: var(--white); flex: 1; }
+
+/* ── Photo / Logo preview ── */
+.photo-preview {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 10px; padding: 10px 14px;
+  background: #f0fff4; border: 2px solid #b7f5cc; border-radius: 12px;
+}
+.photo-preview img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
+.preview-badge { font-size: 0.85rem; font-weight: 600; color: #128C7E; }
+
+/* ── Canvas card ── */
+.canvas-card { padding: 20px; text-align: center; background: linear-gradient(145deg, #f5f0ff, #fff8f0); }
+
+.canvas-hint {
+  font-family: var(--font-gu);
+  font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;
+}
+
+#posterCanvas {
+  width: 100%; height: auto;
+  display: block; margin: 0 auto;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(26, 16, 64, 0.18);
+  background: #f0ece8;
+}
+
+.action-buttons { display: flex; gap: 12px; margin-top: 16px; }
+
+.hidden { display: none !important; }
+
+.app-footer { text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+@media (min-width: 520px) {
+  .app-wrapper { padding: 40px 24px 60px; }
+  .app-title   { font-size: 1.9rem; }
+}
+
+/* ── Custom input (shown when "other" selected) ── */
+.custom-input {
+  margin-top: 8px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Member rows ── */
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.member-row .styled-input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.btn-remove-member {
+  background: rgba(255, 107, 0, 0.15);
+  border: 1px solid rgba(255, 107, 0, 0.4);
+  color: var(--saffron);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.btn-remove-member:hover {
+  background: rgba(255, 107, 0, 0.3);
+}
+
+.btn-add-member {
+  width: 100%;
+  margin-top: 4px;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1.5px dashed var(--gold);
+  color: var(--gold);
+  border-radius: var(--radius-btn);
+  padding: 9px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-add-member:hover {
+  background: rgba(255, 209, 102, 0.22);
+}
+
