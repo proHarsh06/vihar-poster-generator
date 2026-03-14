@@ -347,7 +347,7 @@ function drawRouteText(route) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(26, 16, 64, 0.75)';
-  roundRect(ctx, cx - 170, 482, 340, 38, 19);
+  roundRect(ctx, cx - 170, 528, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -367,7 +367,7 @@ function drawTeamText(team) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(255, 107, 0, 0.9)';
-  roundRect(ctx, cx - 170, 528, 340, 38, 19);
+  roundRect(ctx, cx - 170, 574, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -387,7 +387,7 @@ function drawBhagwantText(bhagwant) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(45, 31, 110, 0.9)';
-  roundRect(ctx, cx - 210, 574, 420, 38, 19);
+  roundRect(ctx, cx - 210, 428, 420, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 16px "Noto Sans Gujarati", sans-serif';
