@@ -15,10 +15,22 @@
  */
 
 // ── Global state ──────────────────────────────────────
-let uploadedPhoto = null;  // user's person photo
-// Logo auto-loads from logo.png in the same folder
-const uploadedLogo = new Image();
-uploadedLogo.src = 'logo.png';
+let uploadedPhoto = null;
+let uploadedLogo  = null;
+
+// Load logo as base64 to avoid canvas taint
+fetch('logo.png')
+  .then(r => r.blob())
+  .then(blob => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => { uploadedLogo = img; };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(blob);
+  })
+  .catch(() => { uploadedLogo = null; });
 
 // ── DOM refs ──────────────────────────────────────────
 const canvas     = document.getElementById('posterCanvas');
@@ -335,7 +347,7 @@ function drawRouteText(route) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(26, 16, 64, 0.75)';
-  roundRect(ctx, cx - 170, 528, 340, 38, 19);
+  roundRect(ctx, cx - 170, 482, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -355,7 +367,7 @@ function drawTeamText(team) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(255, 107, 0, 0.9)';
-  roundRect(ctx, cx - 170, 574, 340, 38, 19);
+  roundRect(ctx, cx - 170, 528, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -375,7 +387,7 @@ function drawBhagwantText(bhagwant) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(45, 31, 110, 0.9)';
-  roundRect(ctx, cx - 210, 482, 420, 38, 19);
+  roundRect(ctx, cx - 210, 574, 420, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 16px "Noto Sans Gujarati", sans-serif';
@@ -421,21 +433,34 @@ function drawFooter() {
   const cx = W / 2;
 
   ctx.save();
-  ctx.font = '14px "Sora", sans-serif';
-  ctx.fillStyle = 'rgba(255, 209, 102, 0.75)';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('— Vihar Seva Group Navsari —', cx, 668);
 
-  ctx.strokeStyle = 'rgba(255,209,102,0.35)';
-  ctx.lineWidth = 1;
+  // Decorative gold line above footer
+  const lineGrad = ctx.createLinearGradient(40, 0, W - 40, 0);
+  lineGrad.addColorStop(0,   'rgba(255,209,102,0)');
+  lineGrad.addColorStop(0.5, 'rgba(255,209,102,0.8)');
+  lineGrad.addColorStop(1,   'rgba(255,209,102,0)');
+  ctx.strokeStyle = lineGrad;
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.moveTo(60, 678); ctx.lineTo(440, 678);
+  ctx.moveTo(40, 655); ctx.lineTo(W - 40, 655);
   ctx.stroke();
 
-  ctx.font = '12px "Sora", sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fillText(, cx, 690);
+  // ✦ decorative dots
+  ctx.fillStyle = '#FFD166';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦', cx - 120, 668);
+  ctx.fillText('✦', cx + 120, 668);
+
+  // Footer text
+  ctx.font = '600 13px "Sora", sans-serif';
+  ctx.fillStyle = 'rgba(255, 209, 102, 0.9)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 6;
+  ctx.fillText('— Vihar Seva Group Navsari —', cx, 668);
+
   ctx.restore();
 }
 
@@ -456,27 +481,41 @@ function roundRect(ctx, x, y, w, h, r) {
 
 // ── Download ──────────────────────────────────────────
 function downloadPoster() {
-  const link    = document.createElement('a');
-  link.href     = canvas.toDataURL('image/png');
-  link.download = 'vihar-poster.png';
-  link.click();
+  canvas.toBlob(function(blob) {
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href     = url;
+    link.download = 'vihar-poster.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, 'image/png');
 }
 
 // ── Share ─────────────────────────────────────────────
 async function sharePoster() {
-  if (!navigator.canShare) {
-    alert('⚠️ Share supported નથી. Poster download કરો.');
-    return;
-  }
-  canvas.toBlob(async blob => {
+  canvas.toBlob(async function(blob) {
     const file = new File([blob], 'vihar-poster.png', { type: 'image/png' });
-    const data = { title: 'વિહાર પોસ્ટર', text: 'વિહાર Complete', files: [file] };
-    if (navigator.canShare(data)) {
-      try { await navigator.share(data); }
-      catch (e) { if (e.name !== 'AbortError') alert('Share failed.'); }
-    } else {
-      try { await navigator.share({ title: data.title, text: data.text }); }
-      catch { alert('Share failed. Poster download કરો.'); }
+
+    // Native share — shows WhatsApp on Android/iOS
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ title: 'વિહાર પોસ્ટર', files: [file] });
+        return;
+      } catch(e) {
+        if (e.name === 'AbortError') return;
+      }
     }
+
+    // Fallback: just download
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href     = url;
+    link.download = 'vihar-poster.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }, 'image/png');
 }
