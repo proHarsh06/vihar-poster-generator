@@ -335,7 +335,7 @@ function drawRouteText(route) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(26, 16, 64, 0.75)';
-  roundRect(ctx, cx - 170, 482, 340, 38, 19);
+  roundRect(ctx, cx - 170, 528, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -375,7 +375,7 @@ function drawBhagwantText(bhagwant) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(45, 31, 110, 0.9)';
-  roundRect(ctx, cx - 210, 528, 420, 38, 19);
+  roundRect(ctx, cx - 210, 482, 420, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 16px "Noto Sans Gujarati", sans-serif';
@@ -435,7 +435,7 @@ function drawFooter() {
 
   ctx.font = '12px "Sora", sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fillText('#ViharSeva', cx, 690);
+  ctx.fillText(, cx, 690);
   ctx.restore();
 }
 
