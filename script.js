@@ -421,21 +421,34 @@ function drawFooter() {
   const cx = W / 2;
 
   ctx.save();
-  ctx.font = '14px "Sora", sans-serif';
-  ctx.fillStyle = 'rgba(255, 209, 102, 0.75)';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('— Vihar Seva Group Navsari —', cx, 668);
 
-  ctx.strokeStyle = 'rgba(255,209,102,0.35)';
-  ctx.lineWidth = 1;
+  // Decorative fading gold line
+  const lineGrad = ctx.createLinearGradient(40, 0, W - 40, 0);
+  lineGrad.addColorStop(0,   'rgba(255,209,102,0)');
+  lineGrad.addColorStop(0.5, 'rgba(255,209,102,0.8)');
+  lineGrad.addColorStop(1,   'rgba(255,209,102,0)');
+  ctx.strokeStyle = lineGrad;
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.moveTo(60, 678); ctx.lineTo(440, 678);
+  ctx.moveTo(40, 655); ctx.lineTo(W - 40, 655);
   ctx.stroke();
 
-  ctx.font = '12px "Sora", sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fillText('#ViharSeva', cx, 690);
+  // ✦ decorative dots
+  ctx.fillStyle = '#FFD166';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦', cx - 120, 668);
+  ctx.fillText('✦', cx + 120, 668);
+
+  // Footer text only — no #ViharSeva
+  ctx.font = '600 13px "Sora", sans-serif';
+  ctx.fillStyle = 'rgba(255, 209, 102, 0.9)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 6;
+  ctx.fillText('— Vihar Seva Group Navsari —', cx, 668);
+
   ctx.restore();
 }
 
