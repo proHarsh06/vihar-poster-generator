@@ -2,6 +2,7 @@
   "name": "Vihar Poster Generator",
   "short_name": "Vihar Poster",
   "description": "વિહાર પોસ્ટર બનાવો • Create & Share",
+  "id": "/vihar-poster-generator/",
   "start_url": "/vihar-poster-generator/",
   "scope": "/vihar-poster-generator/",
   "display": "standalone",
@@ -12,13 +13,20 @@
     {
       "src": "/vihar-poster-generator/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/vihar-poster-generator/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/vihar-poster-generator/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
