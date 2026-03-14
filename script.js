@@ -356,7 +356,7 @@ function drawRouteText(route) {
   ctx.textBaseline = 'middle';
   ctx.shadowColor = 'rgba(0,0,0,0.4)';
   ctx.shadowBlur = 6;
-  ctx.fillText('🗺️  ' + route, cx, 501);
+  ctx.fillText('🗺️  ' + route, cx, 547);
   ctx.restore();
 }
 
@@ -376,7 +376,7 @@ function drawTeamText(team) {
   ctx.textBaseline = 'middle';
   ctx.shadowColor = 'rgba(0,0,0,0.4)';
   ctx.shadowBlur = 6;
-  ctx.fillText('👥  ' + teamText, cx, 547);
+  ctx.fillText('👥  ' + teamText, cx, 593);
   ctx.restore();
 }
 
@@ -387,7 +387,7 @@ function drawBhagwantText(bhagwant) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(45, 31, 110, 0.9)';
-  roundRect(ctx, cx - 210, 428, 420, 38, 19);
+  roundRect(ctx, cx - 210, 428, 420, 40, 19);
   ctx.fill();
 
   ctx.font = 'bold 16px "Noto Sans Gujarati", sans-serif';
@@ -396,7 +396,7 @@ function drawBhagwantText(bhagwant) {
   ctx.textBaseline = 'middle';
   ctx.shadowColor = 'rgba(0,0,0,0.4)';
   ctx.shadowBlur = 6;
-  ctx.fillText('🙏 ' + bhagwant, cx, 593);
+  ctx.fillText('🙏 ' + bhagwant, cx, 448);
   ctx.restore();
 }
 
