@@ -347,7 +347,7 @@ function drawRouteText(route) {
 
   ctx.save();
   ctx.fillStyle = 'rgba(26, 16, 64, 0.75)';
-  roundRect(ctx, cx - 170, 528, 340, 38, 19);
+  roundRect(ctx, cx - 170, 548, 340, 38, 19);
   ctx.fill();
 
   ctx.font = 'bold 19px "Noto Sans Gujarati", sans-serif';
@@ -356,7 +356,7 @@ function drawRouteText(route) {
   ctx.textBaseline = 'middle';
   ctx.shadowColor = 'rgba(0,0,0,0.4)';
   ctx.shadowBlur = 6;
-  ctx.fillText('🗺️  ' + route, cx, 547);
+  ctx.fillText('🗺️  ' + route, cx, 567);
   ctx.restore();
 }
 
