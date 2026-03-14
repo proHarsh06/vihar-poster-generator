@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="gu">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
   <title>Vihar Poster Generator</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="/vihar-poster-generator/manifest.json" />
   <meta name="theme-color" content="#1A1040" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -162,7 +162,9 @@
   <script src="script.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('/vihar-poster-generator/sw.js', {
+        scope: '/vihar-poster-generator/'
+      });
     }
   </script>
 </body>
